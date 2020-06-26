@@ -1,4 +1,7 @@
 # sudo user
+# sedで最終行に書き込み
+# /etc/sudoers
+# <user> ALL=NOPASSWD: ALL
 
 # update and upgrade
 sudo apt update
@@ -18,3 +21,6 @@ sudo apt install -y ssh vim git net-tools
 # tool
 # gitauto
 # sudo cp bin/gitauto /usr/local/bin/
+
+
+
