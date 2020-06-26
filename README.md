@@ -1,2 +1,3 @@
-# linux_init
-Ubuntu18.04 first setup
+# linux
+Ubuntu18.04 OS インストール後の設定
+本番環境などでは実施しないようにする
