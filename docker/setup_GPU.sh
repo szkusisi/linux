@@ -1,8 +1,3 @@
-# sudo user
-# sedで最終行に書き込み
-# /etc/sudoers
-# $USER ALL=NOPASSWD: ALL
-
 # update and upgrade
 sudo apt update
 sudo apt upgrade -y
@@ -29,14 +24,6 @@ sudo apt-get -y install cuda
 # gitauto
 # sudo cp bin/gitauto /usr/local/bin/
 
-# デフォルトエディタ変更
-sudo update-alternatives --set editor /usr/bin/vim.basic
-
-# Timeshiftインストール
-sudo add-apt-repository ppa:teejee2008/ppa
-sudo apt update
-sudo apt install -y timeshift
-
 
 
 # Docker(Rancherのもの)ランタイムインストール
@@ -44,12 +31,14 @@ curl https://releases.rancher.com/install-docker/19.03.sh | sh
 sudo usermod -aG docker $USER
 
 # DockerのGPUランタイムインストール
-sudo apt-get install nvidia-container-runtime
-curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey |   sudo apt-key add -d
-istribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |   sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
 sudo apt-get update
 sudo apt-get install -y nvidia-container-runtime
+
 
 # docker-compose
 compose_version=$(curl https://api.github.com/repos/docker/compose/releases/latest | jq .name -r)
@@ -71,5 +60,5 @@ EOF
 sudo systemctl restart docker.service
 
 # Docker動作確認
-# docker run --gpus all --rm nvidia/cuda nvidia-smi
-# docker-compose up -d
+docker run --gpus all --rm nvidia/cuda nvidia-smi
+docker-compose up -d
