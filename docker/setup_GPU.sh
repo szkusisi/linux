@@ -51,9 +51,6 @@ curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidi
 sudo apt-get update
 sudo apt-get install -y nvidia-container-runtime
 
-# Docker動作確認
-# docker run --gpus all --rm nvidia/cuda nvidia-smi
-
 # docker-compose
 compose_version=$(curl https://api.github.com/repos/docker/compose/releases/latest | jq .name -r)
 output='/usr/local/bin/docker-compose'
@@ -61,3 +58,18 @@ sudo curl -L https://github.com/docker/compose/releases/download/$compose_versio
 sudo chmod +x $output
 echo $(docker-compose --version)
 
+sudo tee /etc/docker/daemon.json <<EOF >/dev/null
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+EOF
+sudo systemctl restart docker.service
+
+# Docker動作確認
+# docker run --gpus all --rm nvidia/cuda nvidia-smi
+# docker-compose up -d
