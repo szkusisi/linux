@@ -11,8 +11,9 @@ sudo apt upgrade -y
 sudo apt autoremove -y
 
 # install
-sudo apt install -y ssh vim git net-tools curl wget tree jq 
+sudo apt install -y ssh vim git net-tools curl wget tree jq ethtool
 # ethtool(WOL)
+sudo ethtool -s enp4s0 wol g
 
 # GPU driver
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
