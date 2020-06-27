@@ -1,0 +1,10 @@
+version: '2.3'
+services:
+  nvsmi:
+    image: tensorflow/tensorflow:latest-gpu-py3
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    container_name: tensorflow
+    hostname: tensorflow
+    command: /bin/sh -c "tail -f /dev/null"

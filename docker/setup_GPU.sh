@@ -39,3 +39,25 @@ sudo apt install -y timeshift
 
 
 
+# Docker(Rancherのもの)ランタイムインストール
+curl https://releases.rancher.com/install-docker/19.03.sh | sh
+sudo usermod -aG docker $USER
+
+# DockerのGPUランタイムインストール
+sudo apt-get install nvidia-container-runtime
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey |   sudo apt-key add -d
+istribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |   sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+sudo apt-get update
+sudo apt-get install -y nvidia-container-runtime
+
+# Docker動作確認
+# docker run --gpus all --rm nvidia/cuda nvidia-smi
+
+# docker-compose
+compose_version=$(curl https://api.github.com/repos/docker/compose/releases/latest | jq .name -r)
+output='/usr/local/bin/docker-compose'
+sudo curl -L https://github.com/docker/compose/releases/download/$compose_version/docker-compose-$(uname -s)-$(uname -m) -o $output
+sudo chmod +x $output
+echo $(docker-compose --version)
+
