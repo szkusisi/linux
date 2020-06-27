@@ -1,7 +1,9 @@
 # sudo user
-# sedで最終行に書き込み
-# /etc/sudoers
-# $USER ALL=NOPASSWD: ALL
+sudo cat /etc/sudoers | grep "$USER ALL=NOPASSWD: ALL"
+if [ 0 != $? ] ; then
+   sudo sed -i -e '$a '$USER' ALL=NOPASSWD: ALL' /etc/sudoers
+fi
+
 
 # update and upgrade
 sudo apt update
