@@ -11,7 +11,7 @@ sudo apt upgrade -y
 sudo apt autoremove -y
 
 # install
-sudo apt install -y ssh vim git net-tools curl wget tree 
+sudo apt install -y ssh vim git net-tools curl wget tree jq 
 # ethtool(WOL)
 
 # GPU driver
