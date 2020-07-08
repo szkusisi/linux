@@ -6,3 +6,7 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 sudo apt update
 sudo apt install -y code
 
+
+
+# VSC導入後のプラグイン
+# https://qiita.com/sensuikan1973/items/74cf5383c02dbcd82234
