@@ -13,7 +13,7 @@ sudo apt autoremove -y
 # install
 sudo apt install -y ssh vim git net-tools curl wget tree jq ethtool
 # ethtool(WOL)
-sudo ethtool -s enp4s0 wol g
+sudo /sbin/ethtool -s enp4s0 wol g
 
 
 # デフォルトエディタ変更

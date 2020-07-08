@@ -60,5 +60,5 @@ EOF
 sudo systemctl restart docker.service
 
 # Docker動作確認
-docker run --gpus all --rm nvidia/cuda nvidia-smi
-docker-compose up -d
+sudo docker run --gpus all --rm nvidia/cuda nvidia-smi
+sudo docker-compose up -d
