@@ -4,7 +4,6 @@ if [ 0 != $? ] ; then
    sudo sed -i -e '$a '$USER' ALL=NOPASSWD: ALL' /etc/sudoers
 fi
 
-
 # update and upgrade
 sudo apt update
 sudo apt upgrade -y
@@ -14,7 +13,6 @@ sudo apt autoremove -y
 sudo apt install -y ssh vim git net-tools curl wget tree jq ethtool
 # ethtool(WOL)
 sudo /sbin/ethtool -s enp4s0 wol g
-
 
 # デフォルトエディタ変更
 sudo update-alternatives --set editor /usr/bin/vim.basic
