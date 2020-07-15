@@ -49,6 +49,7 @@ echo $(docker-compose --version)
 
 sudo tee /etc/docker/daemon.json <<EOF >/dev/null
 {
+    "default-runtime": "nvidia",
     "runtimes": {
         "nvidia": {
             "path": "/usr/bin/nvidia-container-runtime",
