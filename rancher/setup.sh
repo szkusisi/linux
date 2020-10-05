@@ -2,6 +2,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 sudo apt update
 sudo apt upgrade -y
+sudo apt autoremove -y
+
 sudo apt install git curl
 
 sudo apt install software-properties-common -y
@@ -12,7 +14,7 @@ sudo apt install ansible -y
 
 curl https://releases.rancher.com/install-docker/19.03.sh | sh
 
-sudo sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
 ssh-keygen -b 4096
