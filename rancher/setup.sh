@@ -1,29 +1,24 @@
 export DEBIAN_FRONTEND=noninteractive
 
+sudo grep 'user ALL=NOPASSWD: ALL' /etc/sudoers >/dev/null
+if [ $? -ne 0 ]; then
+   sudo sed -i -e '$ a user ALL=NOPASSWD: ALL' /etc/sudoers
+fi
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove -y
 
-sudo apt install git curl
 
-sudo apt install software-properties-common -y
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt update
-sudo apt install ansible -y
+# hosts作成
 
 
-curl https://releases.rancher.com/install-docker/19.03.sh | sh
-
-sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-sudo systemctl restart sshd
-
+# key作成と転送
 ssh-keygen -b 4096
-ssh-copy-id root@localhost
-
-
-# Docker Install
-curl https://releases.rancher.com/install-docker/19.03.sh | sh
-sudo usermod -aG docker $USER
+#ssh-copy-id root@localhost
+for NODE in lb01 master01 master02 master03 worker01 worker02 worker03; do
+  ssh-copy-id root@$NODE
+done
 
 
 # RKE Install
@@ -46,4 +41,13 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s http
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
+
+
+
+# SwapOFF
+sudo sed -i 's/^\/swapfile/#\/swapfile/g' /etc/fstab
+
+
+
+
 

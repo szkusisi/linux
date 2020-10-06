@@ -4,31 +4,31 @@
   tasks:
     - name: Add RKE admin user
       user:
-        name: rke
+        name: user
         shell: /bin/bash
      
     - name: Create sudo file
       file:
-        path: /etc/sudoers.d/rke
+        path: /etc/sudoers.d/user
         state: touch
     
     - name: Give rke user passwordless sudo
       lineinfile:
-        path: /etc/sudoers.d/rke
+        path: /etc/sudoers.d/user
         state: present
-        line: 'rke ALL=(ALL:ALL) NOPASSWD: ALL'
+        line: 'user ALL=(ALL:ALL) NOPASSWD: ALL'
      
     - name: Set authorized key taken from file
       authorized_key:
-        user: rke
+        user: user
         state: present
         key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-    - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+    - name: Disable SWAP since kubernetes can't work with swap enabled
       shell: |
         swapoff -a
      
-    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled
       replace:
         path: /etc/fstab
         regexp: '^([^#].*?\sswap\s+.*)$'
