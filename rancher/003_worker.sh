@@ -10,23 +10,19 @@ sudo apt upgrade -y
 sudo apt autoremove -y
 
 
-# hosts作成
-
-
 # key作成と転送
 ssh-keygen -b 4096
 #ssh-copy-id root@localhost
-for NODE in lb01 master01 master02 master03 worker01 worker02 worker03; do
+for NODE in lb master01 master02 master03 worker01 worker02 worker03; do
   ssh-copy-id root@$NODE
 done
 
 
 # RKE Install
-curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep amd64 | cut -d '"' -f 4 | wget -qi -
+curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep rke_linux-amd64 | cut -d '"' -f 4 | wget -qi -
 chmod +x rke_linux-amd64
 sudo mv rke_linux-amd64 /usr/local/bin/rke
 rke --version
-rm -rf rke_darwin-amd64  rke_windows-amd64.exe
 
 
 # HELM Install
