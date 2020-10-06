@@ -44,10 +44,3 @@ kubectl version --client
 
 
 
-# SwapOFF
-sudo sed -i 's/^\/swapfile/#\/swapfile/g' /etc/fstab
-
-
-
-
-
